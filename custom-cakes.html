@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Cakes - The Sugar Lounge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .custom-page-header {
+            padding: 120px 20px 60px;
+            background-color: var(--primary-light);
+            text-align: center;
+        }
+        
+        .custom-page-header h1 {
+            font-size: 3rem;
+            color: var(--text);
+            margin-bottom: 15px;
+        }
+
+        .custom-form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+        }
+
+        .custom-form-wrapper {
+            padding: 60px 20px;
+            background-color: var(--bg);
+        }
+
+        .custom-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .custom-form .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .custom-form .form-row .form-group {
+            flex: 1;
+        }
+
+        .custom-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .custom-form input,
+        .custom-form select,
+        .custom-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            background: var(--bg);
+            transition: border-color 0.3s ease;
+        }
+
+        .custom-form input:focus,
+        .custom-form select:focus,
+        .custom-form textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .custom-success-msg {
+            display: none;
+            text-align: center;
+            color: var(--primary);
+            font-weight: 500;
+            padding: 20px;
+            background-color: var(--primary-light);
+            border-radius: var(--radius-sm);
+            margin-top: 20px;
+        }
+        
+        .custom-success-msg.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="logo.jpg.jpeg" alt="The Sugar Lounge Logo" class="logo-img">
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html#home">Home</a>
+                <a href="index.html#bakes">Our Bakes</a>
+                <a href="custom-cakes.html" class="active">Custom Cakes</a>
+                <a href="index.html#classes">Classes</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#gallery">Gallery</a>
+            </div>
+
+            <div class="nav-actions">
+                <a href="index.html#contact" class="btn btn-primary" style="padding: 10px 20px;">CONTACT US</a>
+            </div>
+
+            <div class="mobile-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="custom-page-header">
+        <div class="container">
+            <h1>You Imagine It. We Bake It.</h1>
+            <p>Share your occasion, preferences and design requirements with us, and we'll help bring your idea to life.</p>
+        </div>
+    </header>
+
+    <!-- Form Section -->
+    <section class="custom-form-wrapper">
+        <div class="container">
+            <div class="custom-form-container">
+                <form id="custom-cake-page-form" class="custom-form">
+                    <div class="form-group">
+                        <label>Name *</label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Phone Number *</label>
+                            <input type="tel" required>
+                        </div>
+                        <div class="form-group">
+                            <label>WhatsApp Number</label>
+                            <input type="tel">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Occasion</label>
+                        <select id="cc-occasion">
+                            <option>Birthday</option><option>Anniversary</option><option>Engagement</option><option>Wedding</option><option>Baby Shower</option><option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Cake Flavour</label>
+                            <select>
+                                <option>Vanilla</option><option>Chocolate</option><option>Pistachio</option><option>Butterscotch</option><option>Black Currant</option><option>Strawberry</option><option>Orange</option><option>Badam</option><option>Black Forest</option><option>White Forest</option><option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Cake Size</label>
+                            <select>
+                                <option>200g</option><option>250g</option><option>400g</option><option>500g</option><option>3/4kg</option><option>1kg</option><option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Layers</label>
+                            <input type="number" min="1" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Finishing</label>
+                            <select>
+                                <option>Frosting</option><option>Icing</option><option>Fondant</option><option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Extra Toppings / Add-ons</label>
+                        <input type="text">
+                    </div>
+                    <div class="form-group">
+                        <label>Required Delivery Date</label>
+                        <input type="date">
+                    </div>
+                    <div class="form-group">
+                        <label>Theme / Design Reference</label>
+                        <input type="file" accept="image/*" style="margin-bottom: 10px;">
+                        <textarea rows="3" placeholder="Type requirements..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Budget</label>
+                        <input type="text" placeholder="e.g. ₹50 - ₹100">
+                    </div>
+                    <div class="form-group">
+                        <label>Additional Requirements / Notes</label>
+                        <textarea rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">REQUEST FOR BUDGET</button>
+                </form>
+
+                <div id="custom-success" class="custom-success-msg">
+                    “Thank you! Your custom cake request has been received. The Sugar Lounge will review your requirements and get back to you with an estimated budget and availability.”
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-wrapper">
+            <div class="footer-brand">
+                <img src="logo.jpg.jpeg" alt="The Sugar Lounge Logo" class="footer-logo">
+                <p>Custom Bakes • Desserts • Baking Classes</p>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <a href="index.html#home">Home</a>
+                <a href="index.html#bakes">Our Bakes</a>
+                <a href="custom-cakes.html">Custom</a>
+                <a href="index.html#classes">Classes</a>
+            </div>
+            <div class="footer-links">
+                <h4>Support</h4>
+                <a href="#">FAQ</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 The Sugar Lounge. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('custom-cake-page-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            this.style.display = 'none';
+            document.getElementById('custom-success').classList.add('active');
+        });
+        
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
