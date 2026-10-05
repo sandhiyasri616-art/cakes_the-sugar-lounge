@@ -1303,3 +1303,238 @@ input, select, textarea {
 }
 
 
+
+/* Custom Bakes Redesign */
+.custom-bakes-layout {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+.custom-bakes-image {
+    flex: 1;
+}
+.custom-bakes-image img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+.custom-bakes-form-container {
+    flex: 1.2;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+.form-group.half {
+    flex: 1;
+}
+.cb-preview-summary {
+    background: var(--primary-light);
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+.cb-preview-summary h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--primary);
+}
+.cb-preview-summary p {
+    margin-bottom: 5px;
+}
+
+/* Baking Classes Redesign */
+.baking-classes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+.new-class-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+.new-class-card:hover {
+    transform: translateY(-5px);
+}
+.ncc-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+.ncc-content {
+    padding: 25px;
+}
+.ncc-content h3 {
+    margin-bottom: 10px;
+}
+.ncc-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0 25px 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+.ncc-details .price {
+    font-weight: bold;
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+.ncc-actions {
+    display: flex;
+    gap: 15px;
+}
+.ncc-actions .btn {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+    .custom-bakes-layout {
+        flex-direction: column;
+    }
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
+/* New Baking Classes Styles */
+.featured-class-layout {
+    display: flex;
+    gap: 40px;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+.fc-image {
+    flex: 1;
+}
+.fc-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.fc-content {
+    flex: 1;
+    padding: 40px;
+}
+.fc-info-boxes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+.fc-box {
+    background: var(--bg-color);
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+.fc-box strong { color: var(--primary); font-size: 0.9rem; }
+.fc-box span { font-weight: bold; font-size: 1.1rem; }
+.other-classes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* New Custom Bake Builder */
+.cb-intro-layout {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+.cb-intro-img { flex: 1; }
+.cb-intro-img img { width: 100%; border-radius: 12px; }
+.cb-intro-text { flex: 1; padding: 20px; }
+
+.cb-builder-layout {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+.cb-builder-steps {
+    flex: 1.5;
+}
+.cb-step {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+.cb-step h4 {
+    margin-bottom: 20px;
+    color: var(--primary);
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+.cb-selectable-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+}
+.cb-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #fafafa;
+}
+.cb-card:hover {
+    border-color: var(--primary);
+    background: #fdfaf6;
+}
+.cb-card.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+.cb-builder-summary {
+    flex: 1;
+    position: sticky;
+    top: 100px;
+}
+.cb-summary-card {
+    background: var(--primary-light);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+.cb-summary-card h4 {
+    margin-bottom: 20px;
+}
+.cb-summary-card p {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+    .featured-class-layout, .cb-intro-layout, .cb-builder-layout {
+        flex-direction: column;
+    }
+    .fc-content { padding: 20px; }
+}
+@media (max-width: 768px) {
+    .offer-cards {
+        grid-template-columns: 1fr !important;
+    }
+}
