@@ -1,39 +1,44 @@
-﻿document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", function () {
+
+    console.log("The Sugar Lounge JavaScript loaded successfully.");
 
     // =========================================================
     // 1. MOBILE MENU
     // =========================================================
 
-    const mobileBtn = document.getElementById('mobile-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
+    const mobileBtn = document.getElementById("mobile-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const mobileLinks = document.querySelectorAll(".mobile-link");
 
     if (mobileBtn && mobileMenu) {
 
-        mobileBtn.addEventListener('click', () => {
+        mobileBtn.addEventListener("click", function () {
 
-            mobileMenu.classList.toggle('active');
+            mobileMenu.classList.toggle("active");
 
-            const icon = mobileMenu.classList.contains('active')
-                ? 'fa-xmark'
-                : 'fa-bars';
+            const icon = mobileMenu.classList.contains("active")
+                ? "fa-xmark"
+                : "fa-bars";
 
-            mobileBtn.innerHTML = `<i class="fa-solid ${icon}"></i>`;
+            mobileBtn.innerHTML =
+                `<i class="fa-solid ${icon}"></i>`;
+
         });
     }
 
-    mobileLinks.forEach(link => {
+    mobileLinks.forEach(function (link) {
 
-        link.addEventListener('click', () => {
+        link.addEventListener("click", function () {
 
             if (mobileMenu) {
-                mobileMenu.classList.remove('active');
+                mobileMenu.classList.remove("active");
             }
 
             if (mobileBtn) {
                 mobileBtn.innerHTML =
                     `<i class="fa-solid fa-bars"></i>`;
             }
+
         });
 
     });
@@ -43,16 +48,16 @@
     // 2. STICKY NAVBAR
     // =========================================================
 
-    const navbar = document.getElementById('navbar');
+    const navbar = document.getElementById("navbar");
 
     if (navbar) {
 
-        window.addEventListener('scroll', () => {
+        window.addEventListener("scroll", function () {
 
             if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
+                navbar.classList.add("scrolled");
             } else {
-                navbar.classList.remove('scrolled');
+                navbar.classList.remove("scrolled");
             }
 
         });
@@ -61,42 +66,47 @@
 
 
     // =========================================================
-    // 3. INTERSECTION OBSERVER / ANIMATIONS
+    // 3. SCROLL ANIMATION
     // =========================================================
 
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+    if ("IntersectionObserver" in window) {
 
-    const observer = new IntersectionObserver((entries) => {
+        const observer = new IntersectionObserver(
+            function (entries) {
 
-        entries.forEach(entry => {
+                entries.forEach(function (entry) {
 
-            if (entry.isIntersecting) {
+                    if (entry.isIntersecting) {
 
-                entry.target.classList.add('visible');
+                        entry.target.classList.add("visible");
 
-                observer.unobserve(entry.target);
+                        observer.unobserve(entry.target);
 
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
             }
+        );
+
+        const animateElements =
+            document.querySelectorAll(
+                "section, .product-card, .offer-card, .class-card"
+            );
+
+        animateElements.forEach(function (element) {
+
+            element.classList.add("fade-up");
+
+            observer.observe(element);
 
         });
 
-    }, observerOptions);
-
-
-    const animateElements = document.querySelectorAll(
-        'section, .product-card, .offer-card, .class-card'
-    );
-
-    animateElements.forEach(element => {
-
-        element.classList.add('fade-up');
-
-        observer.observe(element);
-
-    });
+    }
 
 
     // =========================================================
@@ -104,33 +114,35 @@
     // =========================================================
 
     const enquiryModal =
-        document.getElementById('enquiry-modal');
+        document.getElementById("enquiry-modal");
 
     const customCakeModal =
-        document.getElementById('custom-cake-modal');
+        document.getElementById("custom-cake-modal");
 
     const closeModals =
-        document.querySelectorAll('.close-modal');
+        document.querySelectorAll(".close-modal");
 
 
-    // Product enquiry modal
+    // ---------------------------------------------------------
+    // PRODUCT ENQUIRY MODAL
+    // ---------------------------------------------------------
 
-    document.querySelectorAll('.enquire-btn').forEach(button => {
+    document.querySelectorAll(".enquire-btn").forEach(function (button) {
 
-        button.addEventListener('click', (event) => {
+        button.addEventListener("click", function () {
 
             const productName =
-                event.currentTarget.getAttribute('data-product');
+                button.getAttribute("data-product");
 
             const productInput =
-                document.getElementById('enq-product-name');
+                document.getElementById("enq-product-name");
 
             if (productInput) {
-                productInput.value = productName || '';
+                productInput.value = productName || "";
             }
 
             if (enquiryModal) {
-                enquiryModal.classList.add('active');
+                enquiryModal.classList.add("active");
             }
 
         });
@@ -138,34 +150,42 @@
     });
 
 
-    // Custom cake modal
+    // ---------------------------------------------------------
+    // CUSTOM CAKE MODAL
+    // ---------------------------------------------------------
 
-    document.querySelectorAll('.open-custom-form').forEach(button => {
+    document.querySelectorAll(".open-custom-form")
+        .forEach(function (button) {
 
-        button.addEventListener('click', () => {
+            button.addEventListener("click", function () {
 
-            if (customCakeModal) {
-                customCakeModal.classList.add('active');
-            }
+                if (customCakeModal) {
+                    customCakeModal.classList.add("active");
+                }
 
-            if (button.classList.contains('tag')) {
+                if (button.classList.contains("tag")) {
 
-                const occasion =
-                    button.textContent.trim();
+                    const occasion =
+                        button.textContent.trim();
 
-                const select =
-                    document.getElementById('cc-occasion');
+                    const select =
+                        document.getElementById("cc-occasion");
 
-                if (select) {
+                    if (select) {
 
-                    for (let i = 0; i < select.options.length; i++) {
+                        for (let i = 0;
+                            i < select.options.length;
+                            i++) {
 
-                        if (
-                            select.options[i].text.trim() === occasion
-                        ) {
+                            if (
+                                select.options[i].text.trim() ===
+                                occasion
+                            ) {
 
-                            select.selectedIndex = i;
-                            break;
+                                select.selectedIndex = i;
+                                break;
+
+                            }
 
                         }
 
@@ -173,25 +193,25 @@
 
                 }
 
-            }
+            });
 
         });
 
-    });
 
+    // ---------------------------------------------------------
+    // CLOSE MODALS
+    // ---------------------------------------------------------
 
-    // Close modals
+    closeModals.forEach(function (button) {
 
-    closeModals.forEach(button => {
-
-        button.addEventListener('click', () => {
+        button.addEventListener("click", function () {
 
             if (enquiryModal) {
-                enquiryModal.classList.remove('active');
+                enquiryModal.classList.remove("active");
             }
 
             if (customCakeModal) {
-                customCakeModal.classList.remove('active');
+                customCakeModal.classList.remove("active");
             }
 
         });
@@ -199,22 +219,24 @@
     });
 
 
-    // Close modal when clicking outside
+    // ---------------------------------------------------------
+    // CLICK OUTSIDE MODAL
+    // ---------------------------------------------------------
 
-    window.addEventListener('click', (event) => {
+    window.addEventListener("click", function (event) {
 
         if (
             enquiryModal &&
             event.target === enquiryModal
         ) {
-            enquiryModal.classList.remove('active');
+            enquiryModal.classList.remove("active");
         }
 
         if (
             customCakeModal &&
             event.target === customCakeModal
         ) {
-            customCakeModal.classList.remove('active');
+            customCakeModal.classList.remove("active");
         }
 
     });
@@ -225,37 +247,36 @@
     // =========================================================
 
     const qtyTypeSelect =
-        document.getElementById('enq-qty-type');
+        document.getElementById("enq-qty-type");
 
     const piecesWrapper =
-        document.getElementById('enq-pieces-wrapper');
+        document.getElementById("enq-pieces-wrapper");
 
     const weightWrapper =
-        document.getElementById('enq-weight-wrapper');
-
+        document.getElementById("enq-weight-wrapper");
 
     if (qtyTypeSelect) {
 
-        qtyTypeSelect.addEventListener('change', (event) => {
+        qtyTypeSelect.addEventListener("change", function () {
 
-            if (event.target.value === 'pieces') {
+            if (this.value === "pieces") {
 
                 if (piecesWrapper) {
-                    piecesWrapper.classList.remove('hidden');
+                    piecesWrapper.classList.remove("hidden");
                 }
 
                 if (weightWrapper) {
-                    weightWrapper.classList.add('hidden');
+                    weightWrapper.classList.add("hidden");
                 }
 
             } else {
 
                 if (piecesWrapper) {
-                    piecesWrapper.classList.add('hidden');
+                    piecesWrapper.classList.add("hidden");
                 }
 
                 if (weightWrapper) {
-                    weightWrapper.classList.remove('hidden');
+                    weightWrapper.classList.remove("hidden");
                 }
 
             }
@@ -270,35 +291,35 @@
     // =========================================================
 
     const customForm =
-        document.getElementById('custom-cake-form');
+        document.getElementById("custom-cake-form");
 
     if (customForm) {
 
-        customForm.addEventListener('submit', (event) => {
+        customForm.addEventListener("submit", function (event) {
 
             event.preventDefault();
 
-            customForm.style.display = 'none';
+            customForm.style.display = "none";
 
             const successMessage =
-                document.getElementById('cc-success-msg');
+                document.getElementById("cc-success-msg");
 
             if (successMessage) {
-                successMessage.classList.remove('hidden');
+                successMessage.classList.remove("hidden");
             }
 
-            setTimeout(() => {
+            setTimeout(function () {
 
                 if (customCakeModal) {
-                    customCakeModal.classList.remove('active');
+                    customCakeModal.classList.remove("active");
                 }
 
-                setTimeout(() => {
+                setTimeout(function () {
 
-                    customForm.style.display = 'block';
+                    customForm.style.display = "block";
 
                     if (successMessage) {
-                        successMessage.classList.add('hidden');
+                        successMessage.classList.add("hidden");
                     }
 
                     customForm.reset();
@@ -317,20 +338,20 @@
     // =========================================================
 
     const enquiryForm =
-        document.getElementById('product-enquiry-form');
+        document.getElementById("product-enquiry-form");
 
     if (enquiryForm) {
 
-        enquiryForm.addEventListener('submit', (event) => {
+        enquiryForm.addEventListener("submit", function (event) {
 
             event.preventDefault();
 
             alert(
-                'Thank you! Your enquiry has been received.'
+                "Thank you! Your enquiry has been received."
             );
 
             if (enquiryModal) {
-                enquiryModal.classList.remove('active');
+                enquiryModal.classList.remove("active");
             }
 
             enquiryForm.reset();
@@ -341,46 +362,57 @@
 
 
     // =========================================================
-    // 8. CART
+    // 8. CART SYSTEM
     // =========================================================
 
     const cartBtn =
-        document.querySelector('.cart-btn');
+        document.querySelector(".cart-btn");
 
     const cartDrawer =
-        document.getElementById('cart-drawer');
+        document.getElementById("cart-drawer");
 
     const closeCart =
-        document.querySelector('.close-cart');
+        document.querySelector(".close-cart");
 
     const cartOverlay =
-        document.querySelector('.cart-overlay');
+        document.querySelector(".cart-overlay");
 
     const cartCount =
-        document.querySelector('.cart-count');
+        document.querySelector(".cart-count");
 
     const cartContainer =
-        document.getElementById('cart-items-container');
+        document.getElementById("cart-items-container");
 
     const cartTotalDisplay =
-        document.getElementById('cart-total-price');
+        document.getElementById("cart-total-price");
 
 
-    // Load cart from localStorage
+    // ---------------------------------------------------------
+    // LOAD CART
+    // ---------------------------------------------------------
 
     let cart = [];
 
     try {
 
-        cart =
-            JSON.parse(
-                localStorage.getItem('sugarLoungeCart')
-            ) || [];
+        const savedCart =
+            localStorage.getItem("sugarLoungeCart");
+
+        if (savedCart) {
+
+            const parsedCart =
+                JSON.parse(savedCart);
+
+            if (Array.isArray(parsedCart)) {
+                cart = parsedCart;
+            }
+
+        }
 
     } catch (error) {
 
         console.error(
-            'Error loading cart:',
+            "Unable to load cart:",
             error
         );
 
@@ -389,34 +421,69 @@
     }
 
 
-    // =========================================================
-    // OPEN / CLOSE CART
-    // =========================================================
+    // ---------------------------------------------------------
+    // SAVE CART
+    // ---------------------------------------------------------
 
-    function toggleCart(show) {
+    function saveCart() {
 
-        if (!cartDrawer || !cartOverlay) {
-            return;
-        }
+        try {
 
-        if (show) {
+            localStorage.setItem(
+                "sugarLoungeCart",
+                JSON.stringify(cart)
+            );
 
-            cartDrawer.classList.add('active');
-            cartOverlay.classList.add('active');
+        } catch (error) {
 
-        } else {
-
-            cartDrawer.classList.remove('active');
-            cartOverlay.classList.remove('active');
+            console.error(
+                "Unable to save cart:",
+                error
+            );
 
         }
 
     }
 
 
+    // ---------------------------------------------------------
+    // OPEN / CLOSE CART
+    // ---------------------------------------------------------
+
+    function toggleCart(show) {
+
+        if (cartDrawer) {
+
+            if (show) {
+                cartDrawer.classList.add("active");
+            } else {
+                cartDrawer.classList.remove("active");
+            }
+
+        }
+
+        if (cartOverlay) {
+
+            if (show) {
+                cartOverlay.classList.add("active");
+            } else {
+                cartOverlay.classList.remove("active");
+            }
+
+        }
+
+    }
+
+
+    // Cart button
+
     if (cartBtn) {
 
-        cartBtn.addEventListener('click', () => {
+        cartBtn.addEventListener("click", function (event) {
+
+            event.preventDefault();
+
+            updateCartUI();
 
             toggleCart(true);
 
@@ -425,9 +492,11 @@
     }
 
 
+    // Close button
+
     if (closeCart) {
 
-        closeCart.addEventListener('click', () => {
+        closeCart.addEventListener("click", function () {
 
             toggleCart(false);
 
@@ -435,10 +504,12 @@
 
     }
 
+
+    // Overlay
 
     if (cartOverlay) {
 
-        cartOverlay.addEventListener('click', () => {
+        cartOverlay.addEventListener("click", function () {
 
             toggleCart(false);
 
@@ -448,37 +519,45 @@
 
 
     // =========================================================
-    // ADD TO CART
+    // 9. ADD TO CART
+    // =========================================================
     // IMPORTANT:
-    // ONLY ONE EVENT LISTENER
+    // THERE IS ONLY ONE ADD-TO-CART EVENT LISTENER.
     // =========================================================
 
-    document.addEventListener('click', (event) => {
+    document.addEventListener("click", function (event) {
 
         const button =
-            event.target.closest('.add-cart-btn');
+            event.target.closest(".add-cart-btn");
 
         if (!button) {
             return;
         }
 
         event.preventDefault();
+        event.stopPropagation();
+
 
         const product =
-            button.getAttribute('data-product');
+            button.getAttribute("data-product");
+
+        const priceText =
+            button.getAttribute("data-price");
 
         const price =
-            parseFloat(
-                button.getAttribute('data-price')
-            );
+            parseFloat(priceText);
 
 
-        // Validate product
+        // Check product
 
         if (!product) {
 
             console.error(
-                'Add to Cart Error: data-product is missing.'
+                "Add to Cart Error: data-product is missing."
+            );
+
+            alert(
+                "Product information is missing."
             );
 
             return;
@@ -486,12 +565,17 @@
         }
 
 
-        // Validate price
+        // Check price
 
         if (isNaN(price)) {
 
             console.error(
-                'Add to Cart Error: data-price is missing or invalid.'
+                "Add to Cart Error: Invalid data-price:",
+                priceText
+            );
+
+            alert(
+                "Product price is invalid."
             );
 
             return;
@@ -499,26 +583,43 @@
         }
 
 
+        // Add product
+
         addToCart(product, price);
 
+
+        // Open cart
+
         toggleCart(true);
+
+
+        console.log(
+            "Added to cart:",
+            product,
+            price
+        );
 
     });
 
 
     // =========================================================
-    // ADD ITEM
+    // 10. ADD ITEM TO CART
     // =========================================================
 
     function addToCart(name, price) {
 
         const existingItem =
-            cart.find(item => item.name === name);
+            cart.find(function (item) {
+
+                return item.name === name;
+
+            });
 
 
         if (existingItem) {
 
-            existingItem.qty += 1;
+            existingItem.qty =
+                Number(existingItem.qty) + 1;
 
         } else {
 
@@ -526,7 +627,7 @@
 
                 name: name,
 
-                price: price,
+                price: Number(price),
 
                 qty: 1
 
@@ -543,31 +644,18 @@
 
 
     // =========================================================
-    // SAVE CART
+    // 11. UPDATE QUANTITY
     // =========================================================
 
-    function saveCart() {
-
-        localStorage.setItem(
-            'sugarLoungeCart',
-            JSON.stringify(cart)
-        );
-
-    }
-
-
-    // =========================================================
-    // UPDATE QUANTITY
-    // =========================================================
-
-    window.updateQty = function(index, change) {
+    window.updateQty = function (index, change) {
 
         if (!cart[index]) {
             return;
         }
 
 
-        cart[index].qty += change;
+        cart[index].qty =
+            Number(cart[index].qty) + Number(change);
 
 
         if (cart[index].qty <= 0) {
@@ -585,10 +673,10 @@
 
 
     // =========================================================
-    // REMOVE ITEM
+    // 12. REMOVE ITEM
     // =========================================================
 
-    window.removeItem = function(index) {
+    window.removeItem = function (index) {
 
         if (!cart[index]) {
             return;
@@ -605,7 +693,24 @@
 
 
     // =========================================================
-    // UPDATE CART UI
+    // 13. ESCAPE HTML
+    // =========================================================
+
+    function escapeHtml(text) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent =
+            String(text);
+
+        return div.innerHTML;
+
+    }
+
+
+    // =========================================================
+    // 14. UPDATE CART UI
     // =========================================================
 
     function updateCartUI() {
@@ -615,11 +720,10 @@
         }
 
 
-        cartContainer.innerHTML = '';
+        cartContainer.innerHTML = "";
 
 
         let total = 0;
-
         let count = 0;
 
 
@@ -628,41 +732,48 @@
         if (cart.length === 0) {
 
             cartContainer.innerHTML =
-                `<p class="empty-cart-msg">
+                `
+                <p class="empty-cart-msg">
                     Your cart is empty.
-                </p>`;
+                </p>
+                `;
 
         } else {
 
+            cart.forEach(function (item, index) {
 
-            // Display products
+                const itemPrice =
+                    Number(item.price) || 0;
 
-            cart.forEach((item, index) => {
+                const itemQty =
+                    Number(item.qty) || 1;
+
 
                 total +=
-                    Number(item.price) *
-                    Number(item.qty);
+                    itemPrice * itemQty;
 
                 count +=
-                    Number(item.qty);
+                    itemQty;
 
 
                 const itemElement =
-                    document.createElement('div');
+                    document.createElement("div");
 
                 itemElement.className =
-                    'cart-item';
+                    "cart-item";
 
 
-                itemElement.innerHTML = `
-
+                itemElement.innerHTML =
+                    `
                     <div class="cart-item-info">
 
-                        <h4>${escapeHtml(item.name)}</h4>
+                        <h4>
+                            ${escapeHtml(item.name)}
+                        </h4>
 
                         <span class="cart-item-price">
-                            ₹${Number(item.price).toFixed(2)}
-                            × ${item.qty}
+                            ₹${itemPrice.toFixed(2)}
+                            × ${itemQty}
                         </span>
 
                     </div>
@@ -679,7 +790,7 @@
 
 
                         <span>
-                            ${item.qty}
+                            ${itemQty}
                         </span>
 
 
@@ -701,11 +812,12 @@
                         </button>
 
                     </div>
+                    `;
 
-                `;
 
-
-                cartContainer.appendChild(itemElement);
+                cartContainer.appendChild(
+                    itemElement
+                );
 
             });
 
@@ -716,7 +828,8 @@
 
         if (cartCount) {
 
-            cartCount.textContent = count;
+            cartCount.textContent =
+                count;
 
         }
 
@@ -730,49 +843,50 @@
 
         }
 
+
+        // If your cart button itself displays ₹0
+
+        if (
+            cartBtn &&
+            !cartCount
+        ) {
+
+            cartBtn.innerHTML =
+                `
+                <i class="fa-solid fa-cart-shopping"></i>
+                ₹${total.toFixed(0)}
+                `;
+
+        }
+
     }
 
 
-    // =========================================================
-    // HTML ESCAPE
-    // =========================================================
-
-    function escapeHtml(text) {
-
-        const div =
-            document.createElement('div');
-
-        div.textContent = text;
-
-        return div.innerHTML;
-
-    }
-
-
-    // =========================================================
-    // INITIAL CART LOAD
-    // =========================================================
+    // Initial cart
 
     updateCartUI();
 
 
     // =========================================================
-    // 9. CART SEND ENQUIRY
+    // 15. CART SEND ENQUIRY
     // =========================================================
 
     const submitCartBtn =
-        document.getElementById('submit-cart-enquiry');
+        document.getElementById(
+            "submit-cart-enquiry"
+        );
 
     const cartMsg =
-        document.getElementById('cart-msg');
+        document.getElementById(
+            "cart-msg"
+        );
 
 
     if (submitCartBtn) {
 
         submitCartBtn.addEventListener(
-            'click',
-            async () => {
-
+            "click",
+            async function () {
 
                 // Empty cart
 
@@ -780,12 +894,14 @@
 
                     if (cartMsg) {
 
-                        cartMsg.style.display = 'block';
+                        cartMsg.style.display =
+                            "block";
 
-                        cartMsg.style.color = 'red';
+                        cartMsg.style.color =
+                            "red";
 
                         cartMsg.textContent =
-                            'Your cart is empty.';
+                            "Your cart is empty.";
 
                     }
 
@@ -794,41 +910,55 @@
                 }
 
 
-                submitCartBtn.disabled = true;
+                submitCartBtn.disabled =
+                    true;
 
                 submitCartBtn.textContent =
-                    'SENDING...';
+                    "SENDING...";
+
+
+                const total =
+                    cart.reduce(
+                        function (sum, item) {
+
+                            return sum +
+                                (
+                                    Number(item.price) *
+                                    Number(item.qty)
+                                );
+
+                        },
+                        0
+                    );
 
 
                 try {
 
-
-                    // IMPORTANT:
-                    // Correct URL - no markdown syntax
+                    /*
+                     * IMPORTANT:
+                     *
+                     * This URL works only when your backend
+                     * is running on your computer.
+                     *
+                     * GitHub Pages cannot access localhost.
+                     */
 
                     const response =
                         await fetch(
-                            'http://localhost:5000/api/enquiry',
+                            "http://localhost:5000/api/enquiry",
                             {
-                                method: 'POST',
+                                method: "POST",
 
                                 headers: {
-                                    'Content-Type':
-                                        'application/json'
+                                    "Content-Type":
+                                        "application/json"
                                 },
 
                                 body: JSON.stringify({
 
                                     items: cart,
 
-                                    total:
-                                        cart.reduce(
-                                            (sum, item) =>
-                                                sum +
-                                                item.price *
-                                                item.qty,
-                                            0
-                                        )
+                                    total: total
 
                                 })
 
@@ -839,7 +969,7 @@
                     if (!response.ok) {
 
                         throw new Error(
-                            'Server returned ' +
+                            "Server returned " +
                             response.status
                         );
 
@@ -848,17 +978,17 @@
 
                     if (cartMsg) {
 
-                        cartMsg.style.display = 'block';
+                        cartMsg.style.display =
+                            "block";
 
-                        cartMsg.style.color = 'green';
+                        cartMsg.style.color =
+                            "green";
 
                         cartMsg.textContent =
-                            'Your enquiry has been sent successfully!';
+                            "Your enquiry has been sent successfully!";
 
                     }
 
-
-                    // Clear cart
 
                     cart = [];
 
@@ -870,28 +1000,31 @@
                 } catch (error) {
 
                     console.error(
-                        'Cart enquiry error:',
+                        "Cart enquiry error:",
                         error
                     );
 
 
                     if (cartMsg) {
 
-                        cartMsg.style.display = 'block';
+                        cartMsg.style.display =
+                            "block";
 
-                        cartMsg.style.color = 'red';
+                        cartMsg.style.color =
+                            "red";
 
                         cartMsg.textContent =
-                            'Failed to send enquiry. Please make sure the backend server is running.';
+                            "Cart is working, but the enquiry server is not connected.";
 
                     }
 
                 } finally {
 
-                    submitCartBtn.disabled = false;
+                    submitCartBtn.disabled =
+                        false;
 
                     submitCartBtn.textContent =
-                        'CONTINUE / SEND ENQUIRY';
+                        "CONTINUE / SEND ENQUIRY";
 
                 }
 
@@ -902,37 +1035,41 @@
 
 
     // =========================================================
-    // 10. TESTIMONIAL CAROUSEL
+    // 16. TESTIMONIAL SLIDER
     // =========================================================
 
     const slides =
         document.querySelectorAll(
-            '.testimonial-slide'
+            ".testimonial-slide"
         );
 
     const prevBtn =
-        document.getElementById('prev-testi');
+        document.getElementById(
+            "prev-testi"
+        );
 
     const nextBtn =
-        document.getElementById('next-testi');
+        document.getElementById(
+            "next-testi"
+        );
 
     let currentSlide = 0;
 
-    let autoSlideInterval;
+    let autoSlideInterval = null;
 
 
     function showSlide(index) {
 
-        slides.forEach(slide => {
+        slides.forEach(function (slide) {
 
-            slide.classList.remove('active');
+            slide.classList.remove("active");
 
         });
 
 
         if (slides[index]) {
 
-            slides[index].classList.add('active');
+            slides[index].classList.add("active");
 
         }
 
@@ -971,6 +1108,10 @@
 
     function startAutoSlide() {
 
+        if (slides.length <= 1) {
+            return;
+        }
+
         autoSlideInterval =
             setInterval(
                 nextSlide,
@@ -982,9 +1123,13 @@
 
     function resetAutoSlide() {
 
-        clearInterval(
-            autoSlideInterval
-        );
+        if (autoSlideInterval) {
+
+            clearInterval(
+                autoSlideInterval
+            );
+
+        }
 
         startAutoSlide();
 
@@ -999,8 +1144,8 @@
         if (nextBtn) {
 
             nextBtn.addEventListener(
-                'click',
-                () => {
+                "click",
+                function () {
 
                     nextSlide();
 
@@ -1015,8 +1160,8 @@
         if (prevBtn) {
 
             prevBtn.addEventListener(
-                'click',
-                () => {
+                "click",
+                function () {
 
                     prevSlide();
 
@@ -1034,85 +1179,94 @@
 
 
     // =========================================================
-    // 11. GALLERY FILTER
+    // 17. GALLERY FILTER
     // =========================================================
 
     const filterBtns =
         document.querySelectorAll(
-            '.filter-btn'
+            ".filter-btn"
         );
 
     const galleryItems =
         document.querySelectorAll(
-            '.gallery-item'
+            ".gallery-item"
         );
 
 
-    filterBtns.forEach(button => {
+    filterBtns.forEach(function (button) {
 
         button.addEventListener(
-            'click',
-            () => {
+            "click",
+            function () {
 
+                filterBtns.forEach(
+                    function (btn) {
 
-                filterBtns.forEach(btn => {
+                        btn.classList.remove(
+                            "active"
+                        );
 
-                    btn.classList.remove(
-                        'active'
-                    );
-
-                });
+                    }
+                );
 
 
                 button.classList.add(
-                    'active'
+                    "active"
                 );
 
 
                 const filter =
                     button.getAttribute(
-                        'data-filter'
+                        "data-filter"
                     );
 
 
-                galleryItems.forEach(item => {
+                galleryItems.forEach(
+                    function (item) {
 
-                    const category =
-                        item.getAttribute(
-                            'data-category'
-                        );
+                        const category =
+                            item.getAttribute(
+                                "data-category"
+                            );
 
 
-                    if (
-                        filter === 'all' ||
-                        category === filter
-                    ) {
-
-                        item.style.display =
-                            'block';
-
-                        setTimeout(() => {
-
-                            item.style.opacity =
-                                '1';
-
-                        }, 50);
-
-                    } else {
-
-                        item.style.opacity =
-                            '0';
-
-                        setTimeout(() => {
+                        if (
+                            filter === "all" ||
+                            category === filter
+                        ) {
 
                             item.style.display =
-                                'none';
+                                "block";
 
-                        }, 300);
+                            setTimeout(
+                                function () {
+
+                                    item.style.opacity =
+                                        "1";
+
+                                },
+                                50
+                            );
+
+                        } else {
+
+                            item.style.opacity =
+                                "0";
+
+                            setTimeout(
+                                function () {
+
+                                    item.style.display =
+                                        "none";
+
+                                },
+                                300
+                            );
+
+                        }
 
                     }
-
-                });
+                );
 
             }
         );
@@ -1121,33 +1275,33 @@
 
 
     // =========================================================
-    // 12. GALLERY LIGHTBOX
+    // 18. GALLERY LIGHTBOX
     // =========================================================
 
     const lightbox =
         document.getElementById(
-            'lightbox'
+            "lightbox"
         );
 
     const lightboxImg =
         document.getElementById(
-            'lightbox-img'
+            "lightbox-img"
         );
 
     const closeLightbox =
         document.querySelector(
-            '.close-lightbox'
+            ".close-lightbox"
         );
 
 
-    galleryItems.forEach(item => {
+    galleryItems.forEach(function (item) {
 
         item.addEventListener(
-            'click',
-            () => {
+            "click",
+            function () {
 
                 const image =
-                    item.querySelector('img');
+                    item.querySelector("img");
 
 
                 if (
@@ -1162,9 +1316,8 @@
                 lightboxImg.src =
                     image.src;
 
-
                 lightbox.classList.add(
-                    'active'
+                    "active"
                 );
 
             }
@@ -1176,13 +1329,13 @@
     if (closeLightbox) {
 
         closeLightbox.addEventListener(
-            'click',
-            () => {
+            "click",
+            function () {
 
                 if (lightbox) {
 
                     lightbox.classList.remove(
-                        'active'
+                        "active"
                     );
 
                 }
@@ -1196,8 +1349,8 @@
     if (lightbox) {
 
         lightbox.addEventListener(
-            'click',
-            (event) => {
+            "click",
+            function (event) {
 
                 if (
                     event.target !==
@@ -1205,7 +1358,7 @@
                 ) {
 
                     lightbox.classList.remove(
-                        'active'
+                        "active"
                     );
 
                 }
@@ -1217,49 +1370,52 @@
 
 
     // =========================================================
-    // 13. CUSTOM BAKES OLD FORM
+    // 19. OLD CUSTOM BAKE FORM
     // =========================================================
 
     const cbForm =
         document.getElementById(
-            'new-custom-bake-form'
+            "new-custom-bake-form"
         );
 
 
     if (cbForm) {
 
         const fields = [
-            'type',
-            'size',
-            'flavor',
-            'design',
-            'message',
-            'date',
-            'additional'
+            "type",
+            "size",
+            "flavor",
+            "design",
+            "message",
+            "date",
+            "additional"
         ];
 
 
-        fields.forEach(field => {
+        fields.forEach(function (field) {
 
             const element =
                 document.getElementById(
-                    'cb-' + field
+                    "cb-" + field
                 );
 
             const preview =
                 document.getElementById(
-                    'prev-' + field
+                    "prev-" + field
                 );
 
 
-            if (element && preview) {
+            if (
+                element &&
+                preview
+            ) {
 
                 element.addEventListener(
-                    'input',
-                    () => {
+                    "input",
+                    function () {
 
                         preview.textContent =
-                            element.value || '-';
+                            element.value || "-";
 
                     }
                 );
@@ -1271,63 +1427,64 @@
 
         const submitCbBtn =
             document.getElementById(
-                'submit-custom-enquiry'
+                "submit-custom-enquiry"
             );
 
         const cbSuccessMsg =
             document.getElementById(
-                'cb-success-msg'
+                "cb-success-msg"
             );
 
 
         if (submitCbBtn) {
 
             submitCbBtn.addEventListener(
-                'click',
-                async () => {
-
+                "click",
+                function () {
 
                     let valid = true;
 
 
                     [
-                        'type',
-                        'size',
-                        'flavor',
-                        'design',
-                        'date'
-                    ].forEach(field => {
+                        "type",
+                        "size",
+                        "flavor",
+                        "design",
+                        "date"
+                    ].forEach(
+                        function (field) {
 
-                        const element =
-                            document.getElementById(
-                                'cb-' + field
-                            );
+                            const element =
+                                document.getElementById(
+                                    "cb-" + field
+                                );
 
 
-                        if (
-                            element &&
-                            !element.value
-                        ) {
+                            if (
+                                element &&
+                                !element.value
+                            ) {
 
-                            valid = false;
+                                valid = false;
 
-                            element.style.borderColor =
-                                'red';
+                                element.style.borderColor =
+                                    "red";
 
-                        } else if (element) {
+                            } else if (element) {
 
-                            element.style.borderColor =
-                                '';
+                                element.style.borderColor =
+                                    "";
+
+                            }
 
                         }
-
-                    });
+                    );
 
 
                     if (!valid) {
 
                         alert(
-                            'Please fill all required fields.'
+                            "Please fill all required fields."
                         );
 
                         return;
@@ -1335,69 +1492,13 @@
                     }
 
 
-                    submitCbBtn.disabled =
-                        true;
+                    if (cbSuccessMsg) {
 
-                    submitCbBtn.textContent =
-                        'Sending...';
+                        cbSuccessMsg.style.display =
+                            "block";
 
-
-                    try {
-
-                        const response =
-                            await fetch(
-                                'http://localhost:5000/api/enquiry',
-                                {
-                                    method: 'POST',
-
-                                    headers: {
-                                        'Content-Type':
-                                            'application/json'
-                                    },
-
-                                    body: JSON.stringify({
-                                        type:
-                                            'custom-bake'
-                                    })
-
-                                }
-                            );
-
-
-                        if (!response.ok) {
-
-                            throw new Error(
-                                'Server error'
-                            );
-
-                        }
-
-
-                        if (cbSuccessMsg) {
-
-                            cbSuccessMsg.style.display =
-                                'block';
-
-                        }
-
-
-                    } catch (error) {
-
-                        console.error(
-                            error
-                        );
-
-                        alert(
-                            'Unable to send enquiry. Please try again.'
-                        );
-
-                    } finally {
-
-                        submitCbBtn.disabled =
-                            false;
-
-                        submitCbBtn.textContent =
-                            'Send Custom Enquiry';
+                        cbSuccessMsg.textContent =
+                            "Thank you! Your custom bake request has been received.";
 
                     }
 
@@ -1410,41 +1511,41 @@
 
 
     // =========================================================
-    // 14. BAKING CLASSES
+    // 20. BAKING CLASS RESERVE BUTTON
     // =========================================================
 
     const reserveSeatBtns =
         document.querySelectorAll(
-            '.reserve-seat-btn'
+            ".reserve-seat-btn"
         );
 
     const bookingModal =
         document.getElementById(
-            'class-booking-modal'
+            "class-booking-modal"
         );
 
     const bkClassName =
         document.getElementById(
-            'bk-class-name'
+            "bk-class-name"
         );
 
 
-    reserveSeatBtns.forEach(button => {
+    reserveSeatBtns.forEach(function (button) {
 
         button.addEventListener(
-            'click',
-            () => {
+            "click",
+            function () {
 
                 const className =
                     button.getAttribute(
-                        'data-class'
+                        "data-class"
                     );
 
 
                 if (bkClassName) {
 
                     bkClassName.value =
-                        className || '';
+                        className || "";
 
                 }
 
@@ -1452,7 +1553,7 @@
                 if (bookingModal) {
 
                     bookingModal.classList.add(
-                        'active'
+                        "active"
                     );
 
                 }
@@ -1464,96 +1565,75 @@
 
 
     // =========================================================
-    // 15. BOOKING SUBMIT
+    // 21. BOOKING SUBMIT
     // =========================================================
 
     const submitBookingBtn =
         document.getElementById(
-            'submit-booking-btn'
+            "submit-booking-btn"
         );
 
     const bkSuccessMsg =
         document.getElementById(
-            'bk-success-msg'
+            "bk-success-msg"
         );
 
 
     if (submitBookingBtn) {
 
         submitBookingBtn.addEventListener(
-            'click',
-            async () => {
+            "click",
+            function () {
+
+                const className =
+                    bkClassName
+                        ? bkClassName.value
+                        : "";
 
 
-                submitBookingBtn.disabled =
-                    true;
-
-                submitBookingBtn.textContent =
-                    'Confirming...';
-
-
-                try {
-
-                    const response =
-                        await fetch(
-                            'http://localhost:5000/api/book-class',
-                            {
-                                method: 'POST',
-
-                                headers: {
-                                    'Content-Type':
-                                        'application/json'
-                                },
-
-                                body: JSON.stringify({
-
-                                    className:
-                                        bkClassName
-                                            ? bkClassName.value
-                                            : ''
-
-                                })
-
-                            }
-                        );
-
-
-                    if (!response.ok) {
-
-                        throw new Error(
-                            'Booking failed'
-                        );
-
-                    }
-
-
-                    if (bkSuccessMsg) {
-
-                        bkSuccessMsg.style.display =
-                            'block';
-
-                    }
-
-
-                } catch (error) {
-
-                    console.error(
-                        error
-                    );
+                if (!className) {
 
                     alert(
-                        'Unable to complete booking. Please make sure the backend is running.'
+                        "Please select a baking class."
                     );
 
-                } finally {
-
-                    submitBookingBtn.disabled =
-                        false;
-
-                    submitBookingBtn.textContent =
-                        'Confirm Booking';
+                    return;
 
                 }
+
+
+                /*
+                 * For GitHub/deployed version:
+                 * show success message locally.
+                 *
+                 * Your actual backend can be connected later.
+                 */
+
+                if (bkSuccessMsg) {
+
+                    bkSuccessMsg.style.display =
+                        "block";
+
+                    bkSuccessMsg.style.color =
+                        "green";
+
+                    bkSuccessMsg.textContent =
+                        "Your seat request has been received!";
+
+                }
+
+
+                setTimeout(function () {
+
+                    if (bookingModal) {
+
+                        bookingModal.classList.remove(
+                            "active"
+                        );
+
+                    }
+
+                }, 2000);
 
             }
         );
@@ -1562,22 +1642,22 @@
 
 
     // =========================================================
-    // 16. CLASS DETAILS
+    // 22. CLASS DETAILS
     // =========================================================
 
     const viewDetailsBtns =
         document.querySelectorAll(
-            '.view-details-btn'
+            ".view-details-btn"
         );
 
     const detailsModal =
         document.getElementById(
-            'class-details-modal'
+            "class-details-modal"
         );
 
     const detailsContent =
         document.getElementById(
-            'cd-dynamic-content'
+            "cd-dynamic-content"
         );
 
 
@@ -1618,7 +1698,7 @@
                 "Advanced Fondant Masterclass",
 
             desc:
-                "Take your skills to the next level. Master sharp edges, fondant draping, and intricate sugar floral work.",
+                "Take your skills to the next level. Master sharp edges, fondant draping and intricate sugar floral work.",
 
             learn: [
                 "Sharp edges with ganache",
@@ -1643,16 +1723,15 @@
     };
 
 
-    viewDetailsBtns.forEach(button => {
+    viewDetailsBtns.forEach(function (button) {
 
         button.addEventListener(
-            'click',
-            () => {
-
+            "click",
+            function () {
 
                 const id =
                     button.getAttribute(
-                        'data-class'
+                        "data-class"
                     );
 
 
@@ -1669,14 +1748,14 @@
                 }
 
 
-                detailsContent.innerHTML = `
-
+                detailsContent.innerHTML =
+                    `
                     <h3>
-                        ${data.title}
+                        ${escapeHtml(data.title)}
                     </h3>
 
                     <p>
-                        ${data.desc}
+                        ${escapeHtml(data.desc)}
                     </p>
 
                     <h5>
@@ -1684,68 +1763,66 @@
                     </h5>
 
                     <ul>
-                        ${data.learn
-                            .map(
-                                item =>
-                                    `<li>${item}</li>`
-                            )
-                            .join('')}
+                        ${
+                            data.learn
+                                .map(function (item) {
+
+                                    return `
+                                        <li>
+                                            ${escapeHtml(item)}
+                                        </li>
+                                    `;
+
+                                })
+                                .join("")
+                        }
                     </ul>
 
                     <p>
-                        <strong>
-                            Duration:
-                        </strong>
-                        ${data.duration}
+                        <strong>Duration:</strong>
+                        ${escapeHtml(data.duration)}
                     </p>
 
                     <p>
-                        <strong>
-                            Level:
-                        </strong>
-                        ${data.level}
+                        <strong>Level:</strong>
+                        ${escapeHtml(data.level)}
                     </p>
 
                     <p>
-                        <strong>
-                            Price:
-                        </strong>
-                        ${data.price}
+                        <strong>Price:</strong>
+                        ${escapeHtml(data.price)}
                     </p>
 
                     <p>
-                        <strong>
-                            Seats Available:
-                        </strong>
+                        <strong>Seats Available:</strong>
                         ${data.seats}
                     </p>
 
                     <button
                         type="button"
-                        class="btn btn-primary reserve-seat-btn mt-3"
-                        data-class="${data.title}">
+                        class="btn btn-primary reserve-seat-btn dynamic-reserve-btn"
+                        data-class="${escapeHtml(data.title)}">
+
                         Reserve Your Seat
+
                     </button>
+                    `;
 
-                `;
-
-
-                // Dynamic reserve button
 
                 const dynamicReserveBtn =
                     detailsContent.querySelector(
-                        '.reserve-seat-btn'
+                        ".dynamic-reserve-btn"
                     );
 
 
                 if (dynamicReserveBtn) {
 
                     dynamicReserveBtn.addEventListener(
-                        'click',
-                        () => {
+                        "click",
+                        function () {
 
                             detailsModal.classList.remove(
-                                'active'
+                                "active"
                             );
 
 
@@ -1760,7 +1837,7 @@
                             if (bookingModal) {
 
                                 bookingModal.classList.add(
-                                    'active'
+                                    "active"
                                 );
 
                             }
@@ -1772,7 +1849,7 @@
 
 
                 detailsModal.classList.add(
-                    'active'
+                    "active"
                 );
 
             }
@@ -1782,113 +1859,116 @@
 
 
     // =========================================================
-    // 17. NEW CUSTOM BAKE BUILDER
+    // 23. NEW CUSTOM BAKE BUILDER
     // =========================================================
 
     const summaryMap = {
 
-        'cbb-type':
-            'sum-type',
+        "cbb-type":
+            "sum-type",
 
-        'cbb-size':
-            'sum-size',
+        "cbb-size":
+            "sum-size",
 
-        'cbb-flavor':
-            'sum-flavor',
+        "cbb-flavor":
+            "sum-flavor",
 
-        'cbb-design':
-            'sum-design'
+        "cbb-design":
+            "sum-design"
 
     };
 
 
-    Object.keys(summaryMap).forEach(gridId => {
+    Object.keys(summaryMap).forEach(
+        function (gridId) {
 
-        const grid =
-            document.getElementById(
-                gridId
-            );
-
-
-        if (!grid) {
-            return;
-        }
+            const grid =
+                document.getElementById(
+                    gridId
+                );
 
 
-        const cards =
-            grid.querySelectorAll(
-                '.cb-card'
-            );
+            if (!grid) {
+                return;
+            }
 
 
-        cards.forEach(card => {
-
-            card.addEventListener(
-                'click',
-                () => {
-
-
-                    cards.forEach(c => {
-
-                        c.classList.remove(
-                            'active'
-                        );
-
-                    });
+            const cards =
+                grid.querySelectorAll(
+                    ".cb-card"
+                );
 
 
-                    card.classList.add(
-                        'active'
-                    );
+            cards.forEach(function (card) {
 
+                card.addEventListener(
+                    "click",
+                    function () {
 
-                    const summary =
-                        document.getElementById(
-                            summaryMap[gridId]
+                        cards.forEach(
+                            function (c) {
+
+                                c.classList.remove(
+                                    "active"
+                                );
+
+                            }
                         );
 
 
-                    if (summary) {
+                        card.classList.add(
+                            "active"
+                        );
 
-                        summary.textContent =
-                            card.getAttribute(
-                                'data-val'
-                            ) || '-';
+
+                        const summary =
+                            document.getElementById(
+                                summaryMap[gridId]
+                            );
+
+
+                        if (summary) {
+
+                            summary.textContent =
+                                card.getAttribute(
+                                    "data-val"
+                                ) || "-";
+
+                        }
 
                     }
+                );
 
-                }
-            );
+            });
 
-        });
-
-    });
+        }
+    );
 
 
     // =========================================================
-    // CUSTOM BUILDER TEXT INPUTS
+    // 24. CUSTOM BUILDER MESSAGE
     // =========================================================
 
     const msgInput =
         document.getElementById(
-            'cbb-message'
+            "cbb-message"
         );
 
     if (msgInput) {
 
         msgInput.addEventListener(
-            'input',
-            event => {
+            "input",
+            function (event) {
 
                 const summary =
                     document.getElementById(
-                        'sum-message'
+                        "sum-message"
                     );
 
                 if (summary) {
 
                     summary.textContent =
-                        event.target.value || '-';
+                        event.target.value || "-";
 
                 }
 
@@ -1898,26 +1978,30 @@
     }
 
 
+    // =========================================================
+    // 25. CUSTOM BUILDER DATE
+    // =========================================================
+
     const dateInput =
         document.getElementById(
-            'cbb-date'
+            "cbb-date"
         );
 
     if (dateInput) {
 
         dateInput.addEventListener(
-            'change',
-            event => {
+            "change",
+            function (event) {
 
                 const summary =
                     document.getElementById(
-                        'sum-date'
+                        "sum-date"
                     );
 
                 if (summary) {
 
                     summary.textContent =
-                        event.target.value || '-';
+                        event.target.value || "-";
 
                 }
 
@@ -1927,26 +2011,30 @@
     }
 
 
+    // =========================================================
+    // 26. CUSTOM BUILDER ADDITIONAL NOTES
+    // =========================================================
+
     const additionalInput =
         document.getElementById(
-            'cbb-additional'
+            "cbb-additional"
         );
 
     if (additionalInput) {
 
         additionalInput.addEventListener(
-            'input',
-            event => {
+            "input",
+            function (event) {
 
                 const summary =
                     document.getElementById(
-                        'sum-additional'
+                        "sum-additional"
                     );
 
                 if (summary) {
 
                     summary.textContent =
-                        event.target.value || '-';
+                        event.target.value || "-";
 
                 }
 
@@ -1957,27 +2045,25 @@
 
 
     // =========================================================
-    // 18. CUSTOM BUILDER IMAGE PREVIEW
+    // 27. CUSTOM BUILDER IMAGE PREVIEW
     // =========================================================
 
     const imageInput =
         document.getElementById(
-            'cbb-image'
+            "cbb-image"
         );
 
 
     if (imageInput) {
 
         imageInput.addEventListener(
-            'change',
+            "change",
             function () {
-
 
                 if (
                     this.files &&
                     this.files[0]
                 ) {
-
 
                     const reader =
                         new FileReader();
@@ -1986,16 +2072,14 @@
                     reader.onload =
                         function (event) {
 
-
                             const previewContainer =
                                 document.getElementById(
-                                    'cbb-image-preview'
+                                    "cbb-image-preview"
                                 );
-
 
                             const previewImg =
                                 document.getElementById(
-                                    'cbb-preview-img'
+                                    "cbb-preview-img"
                                 );
 
 
@@ -2010,7 +2094,7 @@
                             if (previewContainer) {
 
                                 previewContainer.style.display =
-                                    'block';
+                                    "block";
 
                             }
 
@@ -2030,138 +2114,73 @@
 
 
     // =========================================================
-    // 19. CUSTOM BUILDER SUBMIT
+    // 28. CUSTOM BUILDER SUBMIT
     // =========================================================
 
     const submitBuilderBtn =
         document.getElementById(
-            'submit-custom-builder'
+            "submit-custom-builder"
         );
 
     const builderSuccessMsg =
         document.getElementById(
-            'cbb-success-msg'
+            "cbb-success-msg"
         );
 
 
     if (submitBuilderBtn) {
 
         submitBuilderBtn.addEventListener(
-            'click',
-            async () => {
+            "click",
+            function () {
 
-
-                submitBuilderBtn.disabled =
-                    true;
-
-                submitBuilderBtn.textContent =
-                    'Sending...';
-
-
-                try {
-
-
-                    const response =
-                        await fetch(
-                            'http://localhost:5000/api/enquiry',
-                            {
-                                method: 'POST',
-
-                                headers: {
-                                    'Content-Type':
-                                        'application/json'
-                                },
-
-                                body: JSON.stringify({
-
-                                    type:
-                                        'custom-bake-builder',
-
-                                    cakeType:
-                                        document.querySelector(
-                                            '#cbb-type .cb-card.active'
-                                        )?.getAttribute(
-                                            'data-val'
-                                        ) || '',
-
-                                    size:
-                                        document.querySelector(
-                                            '#cbb-size .cb-card.active'
-                                        )?.getAttribute(
-                                            'data-val'
-                                        ) || '',
-
-                                    flavor:
-                                        document.querySelector(
-                                            '#cbb-flavor .cb-card.active'
-                                        )?.getAttribute(
-                                            'data-val'
-                                        ) || '',
-
-                                    design:
-                                        document.querySelector(
-                                            '#cbb-design .cb-card.active'
-                                        )?.getAttribute(
-                                            'data-val'
-                                        ) || '',
-
-                                    message:
-                                        msgInput
-                                            ? msgInput.value
-                                            : '',
-
-                                    date:
-                                        dateInput
-                                            ? dateInput.value
-                                            : '',
-
-                                    additional:
-                                        additionalInput
-                                            ? additionalInput.value
-                                            : ''
-
-                                })
-
-                            }
-                        );
-
-
-                    if (!response.ok) {
-
-                        throw new Error(
-                            'Server returned ' +
-                            response.status
-                        );
-
-                    }
-
-
-                    if (builderSuccessMsg) {
-
-                        builderSuccessMsg.style.display =
-                            'block';
-
-                    }
-
-
-                } catch (error) {
-
-                    console.error(
-                        'Custom builder error:',
-                        error
+                const type =
+                    document.querySelector(
+                        "#cbb-type .cb-card.active"
                     );
+
+                const size =
+                    document.querySelector(
+                        "#cbb-size .cb-card.active"
+                    );
+
+                const flavor =
+                    document.querySelector(
+                        "#cbb-flavor .cb-card.active"
+                    );
+
+                const design =
+                    document.querySelector(
+                        "#cbb-design .cb-card.active"
+                    );
+
+
+                if (
+                    !type ||
+                    !size ||
+                    !flavor ||
+                    !design
+                ) {
 
                     alert(
-                        'Unable to send enquiry. Please make sure the backend server is running.'
+                        "Please select all required cake options."
                     );
 
-                } finally {
+                    return;
 
-                    submitBuilderBtn.disabled =
-                        false;
+                }
 
-                    submitBuilderBtn.textContent =
-                        'Send Custom Enquiry';
+
+                if (builderSuccessMsg) {
+
+                    builderSuccessMsg.style.display =
+                        "block";
+
+                    builderSuccessMsg.style.color =
+                        "green";
+
+                    builderSuccessMsg.textContent =
+                        "Your custom cake request has been received!";
 
                 }
 
@@ -2169,5 +2188,63 @@
         );
 
     }
+
+
+    // =========================================================
+    // 29. ESC KEY
+    // =========================================================
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key === "Escape") {
+
+                if (cartDrawer) {
+                    cartDrawer.classList.remove("active");
+                }
+
+                if (cartOverlay) {
+                    cartOverlay.classList.remove("active");
+                }
+
+                if (lightbox) {
+                    lightbox.classList.remove("active");
+                }
+
+                if (enquiryModal) {
+                    enquiryModal.classList.remove("active");
+                }
+
+                if (customCakeModal) {
+                    customCakeModal.classList.remove("active");
+                }
+
+                if (bookingModal) {
+                    bookingModal.classList.remove("active");
+                }
+
+                if (detailsModal) {
+                    detailsModal.classList.remove("active");
+                }
+
+            }
+
+        }
+    );
+
+
+    // =========================================================
+    // 30. FINAL CHECK
+    // =========================================================
+
+    console.log(
+        "The Sugar Lounge: All JavaScript features initialized."
+    );
+
+    console.log(
+        "Cart items:",
+        cart
+    );
 
 });
